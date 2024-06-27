@@ -39,6 +39,7 @@ def play_loop():
         play_game = input("Would you like to play again?\n 1 = Yes, 2 = No\n Enter Selection: ")
     if play_game == "1":
         main()
+        hangman()
     elif play_game == "2":
         print("Thank you for playing Hangman, come back soon!")
         exit()
