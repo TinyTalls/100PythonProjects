@@ -103,8 +103,8 @@ def hangman():
             print("   _____ \n"
                   "  |     |\n"
                   "  |     |\n"
-                  "  |     O\n"
-                  "  |    /|\\n"
+                  "  |     O \n"
+                  "  |    /|\ \n"
                   "  |      \n"
                   "  |      \n"
                   "__|__\n")
@@ -116,9 +116,9 @@ def hangman():
             print("   _____ \n"
                   "  |     | \n"
                   "  |     |\n"
-                  "  |     O\n"
-                  "  |    /|\\n"
-                  "  |    / \\n"
+                  "  |     O \n"
+                  "  |    /|\ \n"
+                  "  |    / \ \n"
                   "  |     \n"
                   "__|__\n")
             print("Wrong guess. You are hanged!!!\n")
