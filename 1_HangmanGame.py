@@ -30,3 +30,14 @@ def main():
     display = '_' * length
     already_guessed = []
     play_game = ""
+
+def play_loop():
+    global play_game
+    play_game = input("Would you like to play again?\n 1 = Yes, 2 = No\n Enter Selection: ")
+    while play_game not in ["1", "2"]:
+        play_game = input("Would you like to play again?\n 1 = Yes, 2 = No\n Enter Selection: ")
+    if play_game == "1":
+        main()
+    elif play_game == "2":
+        print("Thank you for playing Hangman, come back soon!")
+        exit()
