@@ -19,6 +19,7 @@ def main():
     global count
     global display
     global word
+    global word_origin
     global already_guessed 
     global length
     global play_game
@@ -26,6 +27,7 @@ def main():
                       "gracious", "hinder", "illustrate", "jovial", "knowledgeable", 
                       "meticulous", "nostalgia", "perservere", "resilient"]
     word = random.choice(words_to_guess)
+    word_origin = word
     length = len(word)
     count = 0
     display = '_' * length
@@ -123,7 +125,7 @@ def hangman():
                   "  |     \n"
                   "__|__\n")
             print("Wrong guess. You are hanged!!!\n")
-            print("The word was: " + word)
+            print("The word was: " + word_origin)
             play_loop()
     if word == '_' * length:
         print("Congrats! You have guessed the word correctly!")
