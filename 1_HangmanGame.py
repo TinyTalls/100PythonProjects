@@ -123,7 +123,7 @@ def hangman():
                   "  |     \n"
                   "__|__\n")
             print("Wrong guess. You are hanged!!!\n")
-            print("The word was:",already_guessed,word)
+            print("The word was: " + word)
             play_loop()
     if word == '_' * length:
         print("Congrats! You have guessed the word correctly!")
