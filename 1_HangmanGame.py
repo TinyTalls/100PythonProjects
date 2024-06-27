@@ -3,6 +3,11 @@ Hangman Game
 100 Python Projects
 by Wyatt Newell
 6/27/2024
+
+This project was inspired by Data Flair's Hangman Python game. One of the initial problems I had was using Global variables. 
+In my previous python classes I have been told to stay away from global variables as they can cause issues down the line. 
+Due to this, I followed Data Flair's until their own coding issues came to light. Debugging has been fun, and I may
+come back and reduce the hangman's print to require less lines.
 """
 
 import random, time
