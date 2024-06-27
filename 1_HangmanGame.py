@@ -18,6 +18,7 @@ time.sleep(3)
 def main():
     global count
     global display
+    global word
     global already_guessed 
     global length
     global play_game
@@ -89,9 +90,9 @@ def hangman():
         elif count == 3:
            time.sleep(1)
            print("   _____ \n"
-                 "  |     | \n"
                  "  |     |\n"
-                 "  |     | \n"
+                 "  |     |\n"
+                 "  |     O\n"
                  "  |      \n"
                  "  |      \n"
                  "  |      \n"
@@ -100,10 +101,10 @@ def hangman():
         elif count == 4:
             time.sleep(1)
             print("   _____ \n"
-                  "  |     | \n"
                   "  |     |\n"
-                  "  |     | \n"
-                  "  |     O \n"
+                  "  |     |\n"
+                  "  |     O\n"
+                  "  |    /|\\n"
                   "  |      \n"
                   "  |      \n"
                   "__|__\n")
@@ -115,10 +116,10 @@ def hangman():
             print("   _____ \n"
                   "  |     | \n"
                   "  |     |\n"
-                  "  |     | \n"
-                  "  |     O \n"
-                  "  |    /|\ \n"
-                  "  |    / \ \n"
+                  "  |     O\n"
+                  "  |    /|\\n"
+                  "  |    / \\n"
+                  "  |     \n"
                   "__|__\n")
             print("Wrong guess. You are hanged!!!\n")
             print("The word was:",already_guessed,word)
