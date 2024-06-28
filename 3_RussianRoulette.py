@@ -68,20 +68,19 @@ def russianRoulette():
     global chambers
     global loaded_chamber
     chambers = [1, 2, 3, 4, 5, 6]
-    loaded_chamber = []
+    current_chamber = 1
+
     
     # The gun is loaded
     print(f"A robotic hand reaches out and takes the revolver, loading a single bullet. Then it spins the gun's cylinder.\n")
-    loaded_chamber = random.choice(chambers)
-    # # DEBUG - loaded_chamber reveal
-    print(f"DEBUG - loaded_chamber = {loaded_chamber}")
+    loaded_chamber = random.choice(chambers)    
     time.sleep(1)
     print(f"\n* swish *\n")
     time.sleep(1)
     print(f"The revolver's locks its chamber into place.")
 
     # Basic Game Loop
-    for current_chamber in chambers:
+    while True:
 
         # Player's Turn
         if turn == 1:
@@ -98,39 +97,38 @@ def russianRoulette():
                 else:
                     print(f"Invalid Selection.\n")
 
-            # Selection Results
-
-            # 1 - Shoot Self
+            # Selection Execution
             if player_choice == "1":
                 print(f"The player takes the gun and aims it towards their head.")
-                print(f"...")
-                time.sleep(2)
-                if current_chamber == loaded_chamber:
-                    print(f"* click *")
-                    print(f"BOOM!")
-                    time.sleep(5)
-                    print(f"GAME OVER")
-                    break
-                else:
-                    print(f"* click *")
-                    time.sleep(1)
-                    print(f"The player hands the gun over to the computer.")
-                    turn = 2
-
-            # 2 - Shoot Computer
             elif player_choice == "2":
                 print(f"The player takes the gun and aims it towards the computer.")
-                print(f"...")
-                time.sleep(2)
-                if current_chamber == loaded_chamber:
-                    print(f"* click *")
-                    print(f"BOOM!")
-                    time.sleep(5)
-                    print(f"YOU WIN!")
-                    break
+            else: 
+                print(f"The player spins the barrel")
+                loaded_chamber = random.choice(chambers)
+                current_chamber = 1
+                time.sleep(1)
+                print(f"\n* swish *\n")
+                time.sleep(1)
+                print(f"The revolver's locks its chamber into place.\n")
+            
+            time.sleep(2)
+
+            if current_chamber == loaded_chamber:
+                print(f"* click *")
+                print(f"BOOM!")
+                time.sleep(5)
+                if player_choice == "2":
+                    print("YOU WIN!")
                 else:
-                    print(f"* click *")
-                    time.sleep(1)
+                    print("GAME OVER")
+                break
+            else:
+                print(f"* click *")
+                time.sleep(1)
+                if player_choice in ["1", "3"]:
+                    print(f"The player hands the gun over to the computer.")
+                    turn = 2
+                else:
                     current_chamber += 1
                     print(f"Well shit")
                     print(f"The player takes the gun and aims it towards their head.")
@@ -145,31 +143,6 @@ def russianRoulette():
                         time.sleep(1)
                         print(f"The player hands the gun over to the computer.")
                         turn = 2
-            
-            # 3 - Spin Barrel
-            elif player_choice == "3":
-                print(f"The player spins the barrel")
-                loaded_chamber = random.choice(chambers)
-                current_chamber = 1
-                print(f"DEBUG - loaded_chamber = {loaded_chamber}")
-                time.sleep(1)
-                print(f"\n* swish *\n")
-                time.sleep(1)
-                print(f"The revolver's locks its chamber into place.\n")
-                print(f"The player takes the gun and aims it towards their head.")
-                if current_chamber == loaded_chamber:
-                    print(f"* click *")
-                    print(f"BOOM!")
-                    time.sleep(5)
-                    print(f"GAME OVER")
-                    break
-                else:
-                    print(f"* click *")
-                    time.sleep(1)
-                    print(f"The player hands the gun over to the computer.")
-                    turn = 2 
-
-
 
         # Computer's Turn
         elif turn == 2:
