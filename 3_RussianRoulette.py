@@ -12,17 +12,23 @@ then the chamber is spun. Both the player and computer take turns firing the gun
 In this variation, both player and computer will also have the option to shoot their opponent or spin the barrel.
 Shooting the opponent has its consequences. If the gun fires blank at the opponent, the shooter must take another turn and shoot themselves.
 The player and computer may only spin the barrel once per game. 
+
+This made for a wonderful afternoon. The game is in a working state and without bugs as far as I'm aware. I would like to add more prints.
+If I could add a probablity variable to aid in the computer's choice making, then it would be more interesting than a random choice. 
+
+TODO: Add prints
+TODO: Change computer choice making process
 """
 import time, random
 
 # Initialize Game
-# print("\nRussian Roulette by Wyatt Newell\n")
-# player_name = input(f"Please enter your name: ")
-# print(f"Hello, {player_name}! Good luck, and don't get shot!")
-# time.sleep(2)
-# print(f"The game is about to begin!")
-# input(f"Press Enter to Start")
-# time.sleep(3)
+print("\nRussian Roulette by Wyatt Newell\n")
+player = input(f"Please enter your name: ")
+print(f"Hello, {player}! Good luck, and don't get shot!")
+time.sleep(2)
+print(f"The game is about to begin!")
+input(f"Press Enter to Start")
+time.sleep(3)
 
 # Coin flip to determine who goes first
 def coin_flip_game():
@@ -99,11 +105,11 @@ def russianRoulette():
 
             # Selection Execution
             if player_choice == "1":
-                print(f"The player takes the gun and aims it towards their head.")
+                print(f"{player} takes the gun and aims it towards their head.")
             elif player_choice == "2":
-                print(f"The player takes the gun and aims it towards the computer.")
+                print(f"{player} takes the gun and aims it towards the computer.")
             else: 
-                print(f"The player spins the barrel")
+                print(f"{player} spins the barrel")
                 loaded_chamber = random.choice(chambers)
                 current_chamber = 1
                 time.sleep(1)
@@ -126,11 +132,11 @@ def russianRoulette():
                 time.sleep(1)
                 current_chamber += 1
                 if player_choice in ["1", "3"]:
-                    print(f"The player hands the gun over to the computer.")
+                    print(f"{player} hands the gun over to the computer.")
                     turn = 2
                 else:
                     print(f"Well shit")
-                    print(f"The player takes the gun and aims it towards their head.")
+                    print(f"{player} takes the gun and aims it towards their head.")
                     if current_chamber == loaded_chamber:
                         print(f"* click *")
                         print(f"BOOM!")
@@ -140,18 +146,19 @@ def russianRoulette():
                         print(f"* click *")
                         time.sleep(1)
                         current_chamber += 1
-                        print(f"The player hands the gun over to the computer.")
+                        print(f"{player} hands the gun over to the computer.")
                         turn = 2
 
         # Computer's Turn
         elif turn == 2:
 
             # Computer's Choice
+            # TODO: Change computer choice making process
             computer_choice = random.randrange(1, 3)
             if computer_choice == 1:
                 print(f"The computer takes the gun and aims it towards their head.")
             elif computer_choice == 2:
-                print(f"The computer takes the gun and aims it at the player.")
+                print(f"The computer takes the gun and aims it at {player}.")
             else:
                 print(f"The computer spins the barrel")
                 loaded_chamber = random.choice(chambers)
@@ -178,7 +185,7 @@ def russianRoulette():
                 print(f"...")
                 current_chamber += 1
                 if computer_choice in [1, 3]:
-                    print(f"The computer hands the gun over to the player.")
+                    print(f"The computer hands the gun over to {player}.")
                     turn = 1
                 else:
                     print(f"The computer speaker cries, 'Oh Fuck'")
@@ -191,30 +198,40 @@ def russianRoulette():
                         print(f"* click *")
                         time.sleep(1)
                         current_chamber += 1
-                        print(f"The computer hands the gun over to the player.")
+                        print(f"The computer hands the gun over to {player}.")
                         turn = 1
                     
-
-
-
-
-
-
-
 # Main 
 def main():
     global turn
-    coin_flip_result = coin_flip_game()
-    if coin_flip_result == True:
-        print(f"Player Goes First")
-        turn = 1
-    elif coin_flip_result == False:
-        turn = 2
-        print(f"Computer Goes First")
-    end_game_result = russianRoulette()
-    if end_game_result == True:
-        print(f"YOU WIN!")
-    elif end_game_result == False:
-        print(F"GAME OVER!")
+    while True:
+        coin_flip_result = coin_flip_game()
+        if coin_flip_result == True:
+            print(f"{player} Goes First")
+            turn = 1
+        elif coin_flip_result == False:
+            turn = 2
+            print(f"Computer Goes First")
+        end_game_result = russianRoulette()
+        if end_game_result == True:
+            print(f"YOU WIN!")
+        elif end_game_result == False:
+            print(F"GAME OVER!")
+        while True:
+            play_loop = input(f"\nPlay Again?\n"
+                            "\n1) Yes"
+                            "\n2) No"
+                            "\n"
+                            "\nEnter selection: ")
+            if play_loop in ["1", "2"]:
+                break
+            else:
+                print(f"\nInvalid Selection.\n")
+        if play_loop == "1":
+            pass
+        elif play_loop == "2":
+            exit()
+            
+            
     
 main()
