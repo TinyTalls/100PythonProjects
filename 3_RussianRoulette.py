@@ -53,6 +53,7 @@ def coin_flip_game():
     print(f"The palm opens...\n")
     time.sleep(1)
 
+    # The Result
     print(f"Heads!" if coin_flip == 1 else f"Tails!")
     if (coin_flip == 1 and coin_flip_choice == "1") or (coin_flip == 2 and coin_flip_choice == "2"):
         print(f"\nYou win!")
@@ -61,13 +62,39 @@ def coin_flip_game():
         print(f"\nYou lose!")
         return False 
 
+# The Gun
+def russianRoulette():
+    global turn
+    global chambers
+    global loaded_chamber
+    global current_chamber
+    global game_over
+    chambers = [1, 2, 3, 4, 5, 6]
+    loaded_chamber = []
+    current_chamber = []
+    game_over = 0
+    print(f"A robotic hand reaches out and takes the revolver, loading a single bullet. Then it spins the gun's cylinder.\n")
+    time.sleep(1)
+    print(f"\n* swish *\n")
+    time.sleep(1)
+    loaded_chamber = random.randrange(1,6)
+    print(f"The revolver's locks its chamber into place.")
+    # DEBUG - loaded_chamber reveal
+    print(f"DEBUG - loaded_chamber = {loaded_chamber}")
+    while game_over == 0:
+        if turn == 1:
 
-# Main Game
+
+# Main 
 def main():
+    global turn
     coin_flip_result = coin_flip_game()
     if coin_flip_result == True:
         print(f"Player Goes First")
+        turn = 1
     elif coin_flip_result == False:
+        turn = 2
         print(f"Computer Goes First")
+    russianRoulette()
     
 main()
