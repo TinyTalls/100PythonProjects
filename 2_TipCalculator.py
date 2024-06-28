@@ -39,11 +39,17 @@ def main():
 
     # Custom tip percent input     
     elif tip_selection == "5":
-        custom_tip_percentage = float(input("Insert your custom tip %: ")) / 100
-        tipped_amount = float(amount) * custom_tip_percentage
-        total_amount = float(amount) + tipped_amount
-        time.sleep(1)
-        print(f"\n{user_name}, your custom tip for ${amount} is ${tipped_amount:.2f} for a total of ${total_amount:.2f}")
+        while True:
+            try:
+                custom_tip_percentage = float(input("Insert your custom tip %: ")) / 100
+                tipped_amount = float(amount) * custom_tip_percentage
+                total_amount = float(amount) + tipped_amount
+                time.sleep(1)
+                print(f"\n{user_name}, your custom tip for ${amount} is ${tipped_amount:.2f} for a total of ${total_amount:.2f}")
+                break
+            except:
+                print(f"\nInvalid Input. Please input a value from 1-100 without any symbols '%'\n")
+                time.sleep(1)
 
     
     
