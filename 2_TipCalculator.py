@@ -2,6 +2,10 @@
 Tip Calculator
 by Wyatt Newell
 6/28/2024
+
+Despite the ease of this project, I enjoyed working on it. It's a simple calculator, but I was able to practice dictionaries as well as try-except clauses. 
+I want these projects to be bug-free. Therefore their simplicity now includes debugging, which makes for better programs. I don't know if I will return to this file,
+but I forsee utilizing some of it for another program, such as a food ordering application. That would involve dividing main() into more functions.
 """
 import time
 
