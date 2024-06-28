@@ -25,28 +25,20 @@ def main():
     print(f"1) 10%\n2) 15%\n3) 20%\n4) 22%\n5) Custom\n")
     tip_selection = input(f"Enter Selection: ")
     while tip_selection not in ["1", "2", "3", "4", "5"]:
-        print(f"\nInvalid Selection")
-        tip_selection = input(f"Enter Selection: ")
-    if tip_selection == "1":
-        tipped_amount = float(amount) * 00.10
-        total_amount = float(amount) + float(tipped_amount)
-        print(f"Your 10% tip for ${amount} is ${tipped_amount} for a total of ${total_amount}")
-    elif tip_selection == "2":
-        tipped_amount = float(amount) * 00.15
-        total_amount = float(amount) + float(tipped_amount)
-        print(f"Your 15% tip for ${amount} is ${tipped_amount} for a total of ${total_amount}")
-    elif tip_selection == "3":
-        tipped_amount = float(amount) * 00.20
-        total_amount = float(amount) + float(tipped_amount)
-        print(f"Your 20% tip for ${amount} is ${tipped_amount} for a total of ${total_amount}")
-    elif tip_selection == "4":
-        tipped_amount = float(amount) * 00.22
-        total_amount = float(amount) + float(tipped_amount)
-        print(f"Your 22% tip for ${amount} is ${tipped_amount} for a total of ${total_amount}")
+        print("\nInvalid Selection")
+        tip_selection = input("Enter Selection: ")
+
+    tip_percentages = {"1": 0.10, "2": 0.15, "3": 0.20, "4": 0.22}
+
+    if tip_selection in tip_percentages:
+        tipped_amount = float(amount) * tip_percentages[tip_selection]
+        total_amount = float(amount) + tipped_amount
+        print(f"Your {int(tip_percentages[tip_selection] * 100)}% tip for ${amount} is ${tipped_amount:.2f} for a total of ${total_amount:.2f}")
     elif tip_selection == "5":
-        tipped_amount = input(f"Insert your custom tip %")
-        total_amount = float(amount) + float(tipped_amount)
-        print(f"Your 22% tip for ${amount} is ${tipped_amount} for a total of ${total_amount}")        
+        custom_tip_percentage = float(input("Insert your custom tip %: ")) / 100
+        tipped_amount = float(amount) * custom_tip_percentage
+        total_amount = float(amount) + tipped_amount
+        print(f"Your custom tip for ${amount} is ${tipped_amount:.2f} for a total of ${total_amount:.2f}")
 
     
     
