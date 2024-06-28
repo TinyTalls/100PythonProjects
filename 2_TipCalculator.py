@@ -35,7 +35,7 @@ def main():
         tipped_amount = float(amount) * tip_percentages[tip_selection]
         total_amount = float(amount) + tipped_amount
         time.sleep(1)
-        print(f"\n{user_name}, your {int(tip_percentages[tip_selection] * 100)}% tip for ${amount} is ${tipped_amount:.2f} for a total of ${total_amount:.2f}")
+        print(f"\n{user_name}, your {int(tip_percentages[tip_selection] * 100)}% tip for ${amount} is ${tipped_amount:.2f} for a total of ${total_amount:.2f}\n")
 
     # Custom tip percent input     
     elif tip_selection == "5":
@@ -45,13 +45,24 @@ def main():
                 tipped_amount = float(amount) * custom_tip_percentage
                 total_amount = float(amount) + tipped_amount
                 time.sleep(1)
-                print(f"\n{user_name}, your custom tip for ${amount} is ${tipped_amount:.2f} for a total of ${total_amount:.2f}")
+                print(f"\n{user_name}, your custom tip for ${amount} is ${tipped_amount:.2f} for a total of ${total_amount:.2f}\n")
                 break
             except:
                 print(f"\nInvalid Input. Please input a value from 1-100 without any symbols '%'\n")
                 time.sleep(1)
 
+    # Program Loop
+    print(f"Would you like to find another tip percentage?")
+    time.sleep(1)
+    print(f"1) Yes\n2) No")
+    loop_selection = input(f"Enter Selection: ")
+    while loop_selection not in ["1", "2"]:
+        print(f"Invalid Input.")
+        loop_selection = input(f"Enter Selection: ")
+    if loop_selection == "1":
+        main()
+    elif loop_selection == "2":
+        print(f"\nThank you for using Tip Calculator, {user_name}!\nSee you soon!")
+        exit()
     
-    
-
 main()
