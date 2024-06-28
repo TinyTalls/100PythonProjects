@@ -118,10 +118,9 @@ def russianRoulette():
                 print(f"BOOM!")
                 time.sleep(5)
                 if player_choice == "2":
-                    print("YOU WIN!")
+                    return True
                 else:
-                    print("GAME OVER")
-                break
+                    return False
             else:
                 print(f"* click *")
                 time.sleep(1)
@@ -136,8 +135,7 @@ def russianRoulette():
                         print(f"* click *")
                         print(f"BOOM!")
                         time.sleep(5)
-                        print(f"GAME OVER")
-                        break
+                        return False
                     else:
                         print(f"* click *")
                         time.sleep(1)
@@ -171,11 +169,9 @@ def russianRoulette():
                 print(f"BOOM!")
                 time.sleep(5)
                 if computer_choice in [1, 3]:
-                    print(f"YOU WIN!")
-                    break
+                    return True
                 else:
-                    print(f"GAME OVER")
-                    break
+                    return False
             else:
                 print(f"* click *")
                 time.sleep(1)
@@ -185,13 +181,12 @@ def russianRoulette():
                     print(f"The computer hands the gun over to the player.")
                     turn = 1
                 else:
-                    print(f"The computer speaker cries, 'Oh Fuck")
+                    print(f"The computer speaker cries, 'Oh Fuck'")
                     if current_chamber == loaded_chamber:
                         print(f"* click *")
                         print(f"BOOM!")
                         time.sleep(5)
-                        print(f"YOU WIN!")
-                        break
+                        return True
                     else:
                         print(f"* click *")
                         time.sleep(1)
@@ -216,6 +211,10 @@ def main():
     elif coin_flip_result == False:
         turn = 2
         print(f"Computer Goes First")
-    russianRoulette()
+    end_game_result = russianRoulette()
+    if end_game_result == True:
+        print(f"YOU WIN!")
+    elif end_game_result == False:
+        print(F"GAME OVER!")
     
 main()
