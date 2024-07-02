@@ -13,8 +13,35 @@ from PIL import Image
 import os
 
 image_path = "c:/Users/tinyt/OneDrive/Desktop/100PythonProjects/4_ImageResizer/ThereBeDragons_STK_TStudio.BMP"
+filename = os.path.basename(image_path)
 
-# # PIL Test
+print(image_path)
+print(filename)
+
+
+
+
+def resize_and_center(image_path, output_path, size, background_color=(255, 255, 255)):
+    """
+    resize_and_center - Takes the given image and resizes it, then outputs the new image in a chosen location.
+    """
+    image = Image.open(image_path)
+    image.thumbnail(size, Image.Resampling.LANCZOS)
+    new_image = Image.new('RGB', size, background_color)
+    x = (size[0] - image.size[0]) // 2
+    y = (size[1] - image.size[1]) // 2
+    new_image.paste(image, (x,y))
+    new_image.save(output_path)
+
+resize_and_center(image_path, f"c:/Users/tinyt/OneDrive/Desktop/100PythonProjects/4_ImageResizer/images/{filename}_resized.BMP", (300, 300))
+
+
+
+
+"""
+DEBUGGING
+"""
+# # # PIL Test
 # if os.path.isfile(image_path):
 #     print("File Exists.")
 # else:
@@ -26,14 +53,3 @@ image_path = "c:/Users/tinyt/OneDrive/Desktop/100PythonProjects/4_ImageResizer/T
 #     print("Image loaded successfully with PIL.")
 # except Exception as e:
 #     print(f"Error: {e}")
-
-def resize_and_center(image_path, output_path, size, background_color=(255, 255, 255)):
-    image = Image.open(image_path)
-    image.thumbnail(size, Image.Resampling.LANCZOS)
-    new_image = Image.new('RGB', size, background_color)
-    x = (size[0] - image.size[0]) // 2
-    y = (size[1] - image.size[1]) // 2
-    new_image.paste(image, (x,y))
-    new_image.save(output_path)
-
-resize_and_center(image_path, "c:/Users/tinyt/OneDrive/Desktop/100PythonProjects/4_ImageResizer/images/new_image.BMP", (300, 300))
