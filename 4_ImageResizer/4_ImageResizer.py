@@ -11,27 +11,13 @@ resize options, and output path for said image. I would prefer the user not havi
 """
 from PIL import Image
 import os, pathlib
-from tkinter import *
 
 image_path = "c:/Users/tinyt/OneDrive/Desktop/100PythonProjects/4_ImageResizer/ThereBeDragons_STK_TStudio.BMP"
 filename = pathlib.Path(image_path).stem
 
-
 print(image_path)
 print(filename)
 
-"""
-tkinter box
-"""
-# root = Tk()
-# w = Label(root, text='Image Resizer')
-# w.pack()
-# root.mainloop()
-
-
-"""
-Functions
-"""
 def resize_and_center(image_path, output_path, size, background_color=(255, 255, 255)):
     """
     resize_and_center - Takes the given image and resizes it, then outputs the new image in a chosen location.
@@ -44,14 +30,13 @@ def resize_and_center(image_path, output_path, size, background_color=(255, 255,
     new_image.paste(image, (x,y))
     new_image.save(output_path)
 
-# resize_and_center(image_path, f"c:/Users/tinyt/OneDrive/Desktop/100PythonProjects/4_ImageResizer/images/{filename}_resized.BMP", (300, 300))
-
-
+resize_and_center(image_path, f"c:/Users/tinyt/OneDrive/Desktop/100PythonProjects/4_ImageResizer/images/{filename}_resized.BMP", (300, 300))
 
 
 """
 DEBUGGING
 """
+
 # # # PIL Test
 # if os.path.isfile(image_path):
 #     print("File Exists.")
