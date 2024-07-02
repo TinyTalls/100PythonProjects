@@ -12,17 +12,28 @@ resize options, and output path for said image. I would prefer the user not havi
 from PIL import Image
 import os
 
-image_path = "c:/Users/tinyt/OneDrive/Desktop/100PythonProjects/4_ImageResizer/Checkmark.jpg"
+image_path = "c:/Users/tinyt/OneDrive/Desktop/100PythonProjects/4_ImageResizer/ThereBeDragons_STK_TStudio.BMP"
 
 # # PIL Test
-if os.path.isfile(image_path):
-    print("File Exists.")
-else:
-    print("File does not exist.")
+# if os.path.isfile(image_path):
+#     print("File Exists.")
+# else:
+#     print("File does not exist.")
 
-try:
-    img = Image.open(image_path)
-    img.show()
-    print("Image loaded successfully with PIL.")
-except Exception as e:
-    print(f"Error: {e}")
+# try:
+#     img = Image.open(image_path)
+#     img.show()
+#     print("Image loaded successfully with PIL.")
+# except Exception as e:
+#     print(f"Error: {e}")
+
+def resize_and_center(image_path, output_path, size, background_color=(255, 255, 255)):
+    image = Image.open(image_path)
+    image.thumbnail(size, Image.Resampling.LANCZOS)
+    new_image = Image.new('RGB', size, background_color)
+    x = (size[0] - image.size[0]) // 2
+    y = (size[1] - image.size[1]) // 2
+    new_image.paste(image, (x,y))
+    new_image.save(output_path)
+
+resize_and_center(image_path, "c:/Users/tinyt/OneDrive/Desktop/100PythonProjects/4_ImageResizer/images/new_image.BMP", (300, 300))
