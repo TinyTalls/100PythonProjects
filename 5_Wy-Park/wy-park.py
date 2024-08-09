@@ -15,9 +15,17 @@ import time
 
 
 def print_current_time():
+    """
+    print_current_time = returns a string with the current date, then time underneath.
+    """
     current_time = datetime.now().strftime("%I:%M:%S %p")
     current_date = date.today().strftime("%B %d, %Y")
     current_time_and_date = print(current_date + f"\n" + current_time)
     return current_time_and_date
 
-print_current_time()
+
+def intro():
+    print("\n" + "+" * 50)
+    print(" Wy-Park ".center(50))
+    print(" The Future of Parking ".center(50) + "\n" + "+" * 50 + "\n")
+intro()
