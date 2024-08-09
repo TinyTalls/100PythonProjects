@@ -8,20 +8,62 @@ As opposed to the old coin operated parking meters, this program had users input
 A ticket prints for the user, detailing the alloted parking time and car information. There was an online mobile option to pay as well.
 The parking attendents had handheld computers, and could verify if the parked cars were legal.
 
-I don't intend for this program to be too terribly complex, but I haven't coded in a moment and need to warm back up
+I don't intend for this program to be too terribly complex, but I haven't coded in a moment and need to warm back up.
 """
 from datetime import datetime, date
-import time
+import time, re
+
+def validate_license_plate(license_plate):
+    """
+    validate_license_plate - Checks if the inputted license plate is within 8 characters and has no special characters
+    """
+    if len(license_plate) <= 0 or len(license_plate) > 8 or re.search(r'[^a-zA-Z0-9\s]', license_plate):
+        raise ValueError("Error: Please enter valid License Plate Number") 
+    else:
+        return
 
 
-def print_current_time():
+def pay_for_parking():
     """
-    print_current_time = returns a string with the current date, then time underneath.
+    pay_for_parking - The menu first function in Wy-Park. This will have the user input their license plate, desired parked hours, and confirm their payment at $2 an hour.
+    TODO: save confirmed information.
     """
-    current_time = datetime.now().strftime("%I:%M:%S %p")
-    current_date = date.today().strftime("%B %d, %Y")
-    current_time_and_date = print(current_date + f"\n" + current_time)
-    return current_time_and_date
+    # Step 1: Get the license plate information and validate it.
+    while True:
+        _license_plate = input(f"\nEnter License Plate Number: ")
+        try:
+            validate_license_plate(_license_plate)
+            break
+        except ValueError as e:
+            print(e)
+            time.sleep(2)
+
+    # Step 2: Get the desired hours and validate it.
+    while True:
+        _time_selection = input(f"Enter Hours 1-12: ")
+        if not _time_selection.isdigit() or not 1 <= int(_time_selection) <= 12:
+            print("Error: Please enter hours within 1-12")
+        else:
+            break
+
+    # Step 3: Calculate the payment owed with the desired hours, then confirm all the information with the user.
+    _payment_owed = int(_time_selection) * 2
+    while True:
+        print(("+" * 50) + "\n")
+        print(f"Car: {_license_plate}".center(50))
+        print(f"Hours: {_time_selection}".center(50)) 
+        print(f"Total: ${_payment_owed}".center(50))
+        print("\n")
+        _user_confirmation = input(f"Confirm Information?\n1. Yes\n2. No\n")
+        if _user_confirmation == "1":
+            _cash_input = input(f"Press Enter to insert ${_payment_owed}.")
+            print("Succesful!")
+            break
+        elif _user_confirmation == "2":
+            break
+        else:
+            print("Invalid Selection.\n")
+            time.sleep(2)
 
 
 def intro():
@@ -33,8 +75,8 @@ def intro():
     print(" The Future of Parking ".center(50) + "\n\n" + "+" * 50 + "\n")
 
 def main_menu():
-    intro()
     while True:
+        intro()
         print("Current Time".center(50))
         print(date.today().strftime("%B %d, %Y").center(50))
         print(datetime.now().strftime("%I:%M:%S %p").center(50) + "\n")
@@ -55,7 +97,7 @@ def main_menu():
             print(f"\nError: Please input valid selection.\n")
             time.sleep(2)
         elif user_selection == "1":
-            print("Pay for Parking... Coming Soon!")
+            pay_for_parking()
         elif user_selection == "2":
             print("Extend Parking... Coming Soon!")
         elif user_selection == "3":
