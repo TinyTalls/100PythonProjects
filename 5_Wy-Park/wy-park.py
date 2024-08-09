@@ -10,8 +10,14 @@ The parking attendents had handheld computers, and could verify if the parked ca
 
 I don't intend for this program to be too terribly complex, but I haven't coded in a moment and need to warm back up
 """
-from datetime import datetime
+from datetime import datetime, date
+import time
 
-current_time = datetime.now().strftime("%H:%M:%S %p")
 
-print(current_time)
+def print_current_time():
+    current_time = datetime.now().strftime("%I:%M:%S %p")
+    current_date = date.today().strftime("%B %d, %Y")
+    current_time_and_date = print(current_date + f"\n" + current_time)
+    return current_time_and_date
+
+print_current_time()
