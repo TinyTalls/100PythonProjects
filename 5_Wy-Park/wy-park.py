@@ -13,6 +13,24 @@ I don't intend for this program to be too terribly complex, but I haven't coded 
 from datetime import datetime, date
 import time, re, sqlite3
 
+def read_from_db():
+    conn = sqlite3.connect('payment_data.db')  # Connect to the database
+    cursor = conn.cursor()
+
+    # Execute a query to retrieve all records
+    cursor.execute('SELECT * FROM payments')
+
+    # Fetch all rows from the result of the query
+    rows = cursor.fetchall()
+
+    # Process and print the results
+    print("License Plate | Hours | Payment Owed")
+    print("-" * 40)
+    for row in rows:
+        print(f"{row[0]:<15} | {row[1]:<5} | ${row[2]:.2f}")
+
+    conn.close()  # Close the connection
+
 def save_to_db(license_plate, time_selection, payment_owed):
     conn = sqlite3.connect('payment_data.db')
     cursor = conn.cursor()
@@ -115,6 +133,7 @@ def main_menu():
             print("Check Time... Coming Soon!")
         elif user_selection == "4":
             print("Parking Control... Coming Soon!")
+            read_from_db()
         elif user_selection == "5":
             break
 
