@@ -11,7 +11,17 @@ The parking attendents had handheld computers, and could verify if the parked ca
 I don't intend for this program to be too terribly complex, but I haven't coded in a moment and need to warm back up.
 """
 from datetime import datetime, date
-import time, re
+import time, re, sqlite3
+
+def save_to_db(license_plate, time_selection, payment_owed):
+    conn = sqlite3.connect('payment_data.db')
+    cursor = conn.cursor()
+    cursor.execute('''CREATE TABLE IF NOT EXISTS payments
+                      (license_plate TEXT, time_selection INTEGER, payment_owed REAL)''')
+    cursor.execute('INSERT INTO payments (license_plate, time_selection, payment_owed) VALUES (?, ?, ?)',
+                   (license_plate, time_selection, payment_owed))
+    conn.commit()
+    conn.close()
 
 def validate_license_plate(license_plate):
     """
@@ -58,6 +68,7 @@ def pay_for_parking():
         if _user_confirmation == "1":
             _cash_input = input(f"Press Enter to insert ${_payment_owed}.")
             print("Succesful!")
+            save_to_db(_license_plate, _time_selection, _payment_owed)
             break
         elif _user_confirmation == "2":
             break
