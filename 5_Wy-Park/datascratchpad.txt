@@ -1,0 +1,18 @@
+wy-park data scratch
+
+Ticket Data
+______
+ticket number - Primary Key, Serial
+Lot Number
+Licence Plate number
+Total Fine
+Intake Time
+Experation Time
+_____________
+
+Lot Data
+_____________
+Lot Number - Primary Key, Serial
+Total Spots
+Occupied Spots
+

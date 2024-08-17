@@ -31,13 +31,13 @@ def read_from_db():
 
     conn.close()  # Close the connection
 
-def save_to_db(license_plate, time_selection, payment_owed):
-    conn = sqlite3.connect('payment_data.db')
+def save_to_db(LotNumber, LicencePlate, TotalFine, IntakeTime, ExpirationTime):
+    conn = sqlite3.connect('parking_ticket_data.db')
     cursor = conn.cursor()
-    cursor.execute('''CREATE TABLE IF NOT EXISTS payments
-                      (license_plate TEXT, time_selection INTEGER, payment_owed REAL)''')
-    cursor.execute('INSERT INTO payments (license_plate, time_selection, payment_owed) VALUES (?, ?, ?)',
-                   (license_plate, time_selection, payment_owed))
+    cursor.execute('''CREATE TABLE IF NOT EXISTS ParkingTickets
+                      (TicketNumber SERIAL PRIMARY KEY, LotNumber INT NOT NULL, LicencePlate VARCHAR(20) NOT NULL, TOTAL FINE DECIMAL(10, 2) NOT NULL, IntakeTime TIMESTAMP NOT NULL, ExpirationTime TIMESTAMP NOT NULL''')
+    cursor.execute('INSERT INTO ParkingTickets (LotNumber, LicencePlate, TotalFine, IntakeTime, ExpirationTime)',
+                   (LotNumber, LicencePlate, TotalFine, IntakeTime, ExpirationTime))
     conn.commit()
     conn.close()
 
