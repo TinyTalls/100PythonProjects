@@ -107,6 +107,33 @@ def pay_for_parking():
             time.sleep(2)
 
 
+def parking_control():
+    time.sleep(2)
+    while True:
+        intro()
+        print(f"Parking Control".center(50))
+        print(f"Lot: {lot_number}"center(50) + "\n")
+
+        menu_options = [
+            "1. Check Active Tickets",
+            "2. Check Expired Tickets",
+            "3. Return to Main Menu",
+        ]
+    
+        print(f"\n".join(menu_options))
+        user_selection = input(f"\nEnter Selection: ")
+        time.sleep(2)
+        if user_selection not in ["1", "2", "3"]:
+            print(f"Error: Invalid Selection")
+            time.sleep(2)
+        elif user_selection == "1":
+            read_from_db()
+        elif user_selection == "2":
+            print("Coming Soon!")
+        else:
+            break
+
+
 def intro():
     """
     intro = prints the Wy-Park intro
@@ -145,8 +172,7 @@ def main_menu():
         elif user_selection == "3":
             print("Check Time... Coming Soon!")
         elif user_selection == "4":
-            print("Parking Control... Coming Soon!")
-            read_from_db()
+            parking_control()
         elif user_selection == "5":
             break
 
