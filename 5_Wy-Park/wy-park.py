@@ -10,8 +10,11 @@ The parking attendents had handheld computers, and could verify if the parked ca
 
 I don't intend for this program to be too terribly complex, but I haven't coded in a moment and need to warm back up.
 """
-from datetime import datetime, date
+from datetime import datetime, date, timedelta
 import time, re, sqlite3
+
+lot_number = 117
+
 
 def read_from_db():
     conn = sqlite3.connect('payment_data.db')  # Connect to the database
@@ -34,9 +37,8 @@ def read_from_db():
 def save_to_db(LotNumber, LicencePlate, TotalFine, IntakeTime, ExpirationTime):
     conn = sqlite3.connect('parking_ticket_data.db')
     cursor = conn.cursor()
-    cursor.execute('''CREATE TABLE IF NOT EXISTS ParkingTickets
-                      (TicketNumber SERIAL PRIMARY KEY, LotNumber INT NOT NULL, LicencePlate VARCHAR(20) NOT NULL, TOTAL FINE DECIMAL(10, 2) NOT NULL, IntakeTime TIMESTAMP NOT NULL, ExpirationTime TIMESTAMP NOT NULL''')
-    cursor.execute('INSERT INTO ParkingTickets (LotNumber, LicencePlate, TotalFine, IntakeTime, ExpirationTime)',
+    cursor.execute('''CREATE TABLE IF NOT EXISTS ParkingTickets (TicketNumber INTEGER PRIMARY KEY AUTOINCREMENT, LotNumber INT NOT NULL, LicencePlate VARCHAR(20) NOT NULL, TotalFine DECIMAL(10, 2) NOT NULL, IntakeTime TIMESTAMP NOT NULL, ExpirationTime TIMESTAMP NOT NULL)''')
+    cursor.execute('INSERT INTO ParkingTickets (LotNumber, LicencePlate, TotalFine, IntakeTime, ExpirationTime) VALUES (?, ?, ?, ?, ?)',
                    (LotNumber, LicencePlate, TotalFine, IntakeTime, ExpirationTime))
     conn.commit()
     conn.close()
@@ -50,6 +52,12 @@ def validate_license_plate(license_plate):
     else:
         return
 
+def add_hours_to_ticket(ticket_datetime, added_hours):
+    """
+    add_hours_to_ticket - takes the current ticket datetime and adds the corresponding hours, returning the new datetime
+    """
+    new_datetime = ticket_datetime + timedelta(hours=added_hours)
+    return new_datetime
 
 def pay_for_parking():
     """
@@ -76,17 +84,22 @@ def pay_for_parking():
 
     # Step 3: Calculate the payment owed with the desired hours, then confirm all the information with the user.
     _payment_owed = int(_time_selection) * 2
+    _current_time = datetime.now()
+    _ticket_experation = add_hours_to_ticket(_current_time, int(_time_selection))
+    _experation_string = _ticket_experation.strftime("%Y-%m-%d %H:%M:%S")
     while True:
         print(("+" * 50) + "\n")
         print(f"Car: {_license_plate}".center(50))
         print(f"Hours: {_time_selection}".center(50)) 
         print(f"Total: ${_payment_owed}".center(50))
+        print(f"Expires: {_experation_string}".center(50))
         print("\n")
         _user_confirmation = input(f"Confirm Information?\n1. Yes\n2. No\n")
         if _user_confirmation == "1":
             _cash_input = input(f"Press Enter to insert ${_payment_owed}.")
+            _intake_time = datetime.now()
+            save_to_db(lot_number, _license_plate, _payment_owed, _intake_time, _ticket_experation,)
             print("Succesful!")
-            save_to_db(_license_plate, _time_selection, _payment_owed)
             break
         elif _user_confirmation == "2":
             break
@@ -106,6 +119,7 @@ def intro():
 def main_menu():
     while True:
         intro()
+        print(f"Lot: {lot_number}\n".center(50))
         print("Current Time".center(50))
         print(date.today().strftime("%B %d, %Y").center(50))
         print(datetime.now().strftime("%I:%M:%S %p").center(50) + "\n")
