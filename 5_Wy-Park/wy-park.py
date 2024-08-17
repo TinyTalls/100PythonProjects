@@ -17,21 +17,20 @@ lot_number = 117
 
 
 def read_from_db():
-    conn = sqlite3.connect('payment_data.db')  # Connect to the database
+    conn = sqlite3.connect('parking_ticket_data.db')  # Connect to the database
     cursor = conn.cursor()
 
     # Execute a query to retrieve all records
-    cursor.execute('SELECT * FROM payments')
+    cursor.execute('SELECT * FROM ParkingTickets')
 
     # Fetch all rows from the result of the query
     rows = cursor.fetchall()
 
     # Process and print the results
-    print("License Plate | Hours | Payment Owed")
+    print("Ticket Number | Lot Number | Licence Plate | Total Fine | Intake Time | Expiration Time")
     print("-" * 40)
     for row in rows:
-        print(f"{row[0]:<15} | {row[1]:<5} | ${row[2]:.2f}")
-
+        print(f"{row[0]:<13} | {row[1]:<10} | {row[2]:<14} | ${row[3]:<10.2f} | {row[4]:<20} | {row[5]:<20}")
     conn.close()  # Close the connection
 
 def save_to_db(LotNumber, LicencePlate, TotalFine, IntakeTime, ExpirationTime):
