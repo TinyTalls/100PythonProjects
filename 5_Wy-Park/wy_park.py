@@ -46,7 +46,6 @@ def add_hours_to_ticket(ticket_datetime, added_hours):
 def pay_for_parking():
     """
     pay_for_parking - The menu first function in Wy-Park. This will have the user input their license plate, desired parked hours, and confirm their payment at $2 an hour.
-    TODO: save confirmed information.
     """
     # Step 1: Get the license plate information and validate it.
     while True:
