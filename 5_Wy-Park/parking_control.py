@@ -1,4 +1,5 @@
-import time, sqlite3, datetime
+import time, sqlite3
+from datetime import datetime
 
 def read_from_db():
     conn = sqlite3.connect('parking_ticket_data.db')  # Connect to the database
