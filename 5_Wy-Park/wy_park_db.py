@@ -44,3 +44,12 @@ def check_expired_tickets():
 
     # Close the connection
     conn.close()
+
+def save_to_db(LotNumber, LicencePlate, TotalFine, IntakeTime, ExpirationTime):
+    conn = sqlite3.connect('parking_ticket_data.db')
+    cursor = conn.cursor()
+    cursor.execute('''CREATE TABLE IF NOT EXISTS ParkingTickets (TicketNumber INTEGER PRIMARY KEY AUTOINCREMENT, LotNumber INT NOT NULL, LicencePlate VARCHAR(20) NOT NULL, TotalFine DECIMAL(10, 2) NOT NULL, IntakeTime TIMESTAMP NOT NULL, ExpirationTime TIMESTAMP NOT NULL)''')
+    cursor.execute('INSERT INTO ParkingTickets (LotNumber, LicencePlate, TotalFine, IntakeTime, ExpirationTime) VALUES (?, ?, ?, ?, ?)',
+                   (LotNumber, LicencePlate, TotalFine, IntakeTime, ExpirationTime))
+    conn.commit()
+    conn.close()
