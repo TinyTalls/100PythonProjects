@@ -11,27 +11,12 @@ The parking attendents had handheld computers, and could verify if the parked ca
 I don't intend for this program to be too terribly complex, but I haven't coded in a moment and need to warm back up.
 """
 from datetime import datetime, date, timedelta
-import time, re, sqlite3
+import time, re, sqlite3, parking_control
 
 lot_number = 117
 
 
-def read_from_db():
-    conn = sqlite3.connect('parking_ticket_data.db')  # Connect to the database
-    cursor = conn.cursor()
 
-    # Execute a query to retrieve all records
-    cursor.execute('SELECT * FROM ParkingTickets')
-
-    # Fetch all rows from the result of the query
-    rows = cursor.fetchall()
-
-    # Process and print the results
-    print("Ticket Number | Lot Number | Licence Plate | Total Fine | Intake Time | Expiration Time")
-    print("-" * 40)
-    for row in rows:
-        print(f"{row[0]:<13} | {row[1]:<10} | {row[2]:<14} | ${row[3]:<10.2f} | {row[4]:<20} | {row[5]:<20}")
-    conn.close()  # Close the connection
 
 def save_to_db(LotNumber, LicencePlate, TotalFine, IntakeTime, ExpirationTime):
     conn = sqlite3.connect('parking_ticket_data.db')
@@ -106,60 +91,6 @@ def pay_for_parking():
             print("Invalid Selection.\n")
             time.sleep(2)
 
-def check_expired_tickets():
-    # Connect to the SQLite database (replace 'your_database.db' with your database file)
-    conn = sqlite3.connect('parking_ticket_data.db')
-    cursor = conn.cursor()
-
-    # Get the current date and time
-    now = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
-
-    # SQL query to select tickets with ExpirationTime less than the current date and time
-    query = '''SELECT * FROM ParkingTickets
-            WHERE ExpirationTime < ? '''
-
-    # Execute the query
-    cursor.execute(query, (now,))
-
-    # Fetch all rows that match the query
-    expired_tickets = cursor.fetchall()
-
-    # Print the expired tickets
-    print("Ticket Number | Lot Number | Licence Plate | Total Fine | Intake Time          | Expiration Time     ")
-    print("-" * 60)
-    for row in expired_tickets:
-        print(f"{row[0]:<13} | {row[1]:<10} | {row[2]:<14} | ${row[3]:<10.2f} | {row[4]:<20} | {row[5]:<20}")
-
-    # Close the connection
-    conn.close()
-
-def parking_control():
-    time.sleep(2)
-    while True:
-        intro()
-        print(f"Parking Control".center(50))
-        print(f"Lot: {lot_number}".center(50) + "\n")
-
-        menu_options = [
-            "1. Check Active Tickets",
-            "2. Check Expired Tickets",
-            "3. Return to Main Menu",
-        ]
-    
-        print(f"\n".join(menu_options))
-        user_selection = input(f"\nEnter Selection: ")
-        time.sleep(2)
-        if user_selection not in ["1", "2", "3"]:
-            print(f"Error: Invalid Selection")
-            time.sleep(2)
-        elif user_selection == "1":
-            read_from_db()
-        elif user_selection == "2":
-            check_expired_tickets()
-        else:
-            break
-
-
 def intro():
     """
     intro = prints the Wy-Park intro
@@ -198,7 +129,7 @@ def main_menu():
         elif user_selection == "3":
             print("Check Time... Coming Soon!")
         elif user_selection == "4":
-            parking_control()
+            parking_control.parking_control()
         elif user_selection == "5":
             break
 
