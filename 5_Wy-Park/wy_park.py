@@ -11,7 +11,7 @@ The parking attendents had handheld computers, and could verify if the parked ca
 I don't intend for this program to be too terribly complex, but I haven't coded in a moment and need to warm back up.
 """
 from datetime import datetime, date, timedelta
-import time, parking_control, pay_for_parking
+import time, parking_control, pay_for_parking, check_time
 
 
 def intro():
@@ -51,7 +51,7 @@ def main_menu():
         elif user_selection == "2":
             print("Extend Parking... Coming Soon!")
         elif user_selection == "3":
-            print("Check Time... Coming Soon!")
+            check_time.check_time()
         elif user_selection == "4":
             parking_control.parking_control()
         elif user_selection == "5":
